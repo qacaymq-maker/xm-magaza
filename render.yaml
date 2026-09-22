@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: xm-magaza
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: xm-magaza-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false
+databases:
+  - name: xm-magaza-db
+    plan: free

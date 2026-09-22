@@ -1,0 +1,39 @@
+XM MAĞAZA — İNTERNETDƏN İŞLƏYƏN QURAŞDIRMA
+
+Bu paket artıq PostgreSQL verilənlər bazası ilə cloud/server üçün hazırlanıb.
+Eyni Wi‑Fi lazım deyil. Telefon, iPhone, Android və kompüter internet üzərindən eyni bazaya qoşula bilər.
+
+ƏN SADƏ YOL: Railway
+
+1. Railway hesabı yaradın.
+2. Bu qovluğu GitHub-a yükləyin.
+3. Railway-də New Project → Deploy from GitHub Repo seçin.
+4. Repository-ni seçin.
+5. Project daxilində + New → Database → PostgreSQL əlavə edin.
+6. App service-in Variables bölməsində:
+   DATABASE_URL = ${{Postgres.DATABASE_URL}}
+   JWT_SECRET = uzun təsadüfi şifrə
+   ADMIN_PASSWORD = öz admin şifrəniz
+7. Deploy edin.
+8. Settings → Networking → Generate Domain.
+9. Verilən internet ünvanını telefonda və kompüterdə açın.
+
+Railway Node.js/Express tətbiqlərini deploy etməyi və PostgreSQL əlavə etməyi dəstəkləyir.
+Sənəd: https://docs.railway.com/guides/express
+
+GİRİŞ:
+İstifadəçi: admin
+Şifrə: admin123
+İlk girişdən sonra admin şifrəsini dəyişmək tövsiyə olunur.
+
+VACİB:
+- Bu ZIP-i öz kompüterinizdə açmaq ictimai internet ünvanı yaratmır.
+- İctimai internet üçün hosting/cloud hesabında deploy edilməlidir.
+- Domain istəyirsinizsə, sonradan öz domeninizi qoşa bilərsiniz.
+- HTTPS hosting platforması tərəfindən verildikdə telefon kameradan barkod oxutma daha problemsiz işləyir.
+
+YERLİ TEST:
+docker compose up --build
+Sonra: http://localhost:3000
+
+Cloud versiyada məlumatlar PostgreSQL-də saxlanır; kompüter söndürülsə də serverdə qalır.

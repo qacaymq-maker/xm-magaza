@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: xm_magaza
+      POSTGRES_USER: xm_user
+      POSTGRES_PASSWORD: xm_change_me
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://xm_user:xm_change_me@db:5432/xm_magaza
+      JWT_SECRET: change-this-secret
+      ADMIN_PASSWORD: admin123
+      PORT: 3000
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
