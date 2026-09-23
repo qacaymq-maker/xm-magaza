@@ -7,7 +7,23 @@ const {Pool}=require("pg");
 const app=express();
 const PORT=process.env.PORT||3000;
 const SECRET=process.env.JWT_SECRET||"CHANGE-ME-XM-MAGAZA-SECRET";
-const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.DATABASE_URL?.includes("railway")||process.env.PGSSLMODE==="require"?{rejectUnauthorized:false}:undefined});
+const dbUrl = process.env.DATABASE_URL || process.env.DATABASE_PUBLIC_URL;
+if (!dbUrl && !process.env.PGHOST) {
+  throw new Error("DATABASE_URL dəyişəni tapılmadı. Railway-də xm-magaza üçün DATABASE_URL = ${{xm-magaza-db.DATABASE_URL}} əlavə edin.");
+}
+const pool = dbUrl
+  ? new Pool({
+      connectionString: dbUrl,
+      ssl: process.env.PGSSLMODE === "require" ? { rejectUnauthorized: false } : undefined
+    })
+  : new Pool({
+      host: process.env.PGHOST,
+      port: Number(process.env.PGPORT || 5432),
+      user: process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE,
+      ssl: process.env.PGSSLMODE === "require" ? { rejectUnauthorized: false } : undefined
+    });
 app.use(express.json({limit:"10mb"}));
 app.use(express.static(__dirname+"/public"));
 

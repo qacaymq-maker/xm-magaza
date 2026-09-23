@@ -11,7 +11,7 @@ Eyni Wi‑Fi lazım deyil. Telefon, iPhone, Android və kompüter internet üzə
 4. Repository-ni seçin.
 5. Project daxilində + New → Database → PostgreSQL əlavə edin.
 6. App service-in Variables bölməsində:
-   DATABASE_URL = ${{Postgres.DATABASE_URL}}
+   DATABASE_URL = ${{xm-magaza-db.DATABASE_URL}}
    JWT_SECRET = uzun təsadüfi şifrə
    ADMIN_PASSWORD = öz admin şifrəniz
 7. Deploy edin.
